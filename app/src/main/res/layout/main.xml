@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="SpeakableTextPresentCheck">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <net.crosp.libs.android.circletimeview.CircleTimeView
+            android:id="@+id/circle_timer_view"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_gravity="center"
+            app:ctvCircleButtonColor="#ff6c58"
+            app:ctvCircleColor="#ABC9FF"
+            app:ctvCircleHandButtonRadius="10dp"
+            app:ctvCirclePressedButtonColor="#CDF0EA"
+            app:ctvCircleStrokeWidth="1dp"
+            app:ctvCurrentTimeInSeconds="160"
+            app:ctvHighlightMarkLineColor="#ABC9FF"
+            app:ctvLabelTextColor="#fff"
+            app:ctvLabelTextSize="20sp"
+            app:ctvLapBackgroundColor="@android:color/transparent"
+            app:ctvLapLabelTextSize="20sp"
+            app:ctvLapTextColor="#ABC9FF"
+            app:ctvMarginTopLabel="3dp"
+            app:ctvMarkLineWidth="1dp"
+            app:ctvMarkSize="10dp"
+            app:ctvMinutesMarkCount="120"
+            app:ctvMultiLapRotation="true"
+            app:ctvPaddingInnerRadius="15dp"
+            app:ctvPaddingQuarterNumber="5dp"
+            app:ctvQuarterMarkSize="20dp"
+            app:ctvQuarterNumberTextSize="16sp"
+            app:ctvShowLaps="true"
+            app:ctvTimeFormat="minutes_hours"
+            app:ctvTimeMode="normal"
+            app:ctvTimeNumberColor="#9bbfff"
+            app:ctvTimeNumbersTextSize="76sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
+
+            <com.arbelkilani.clock.Clock
+                android:id="@+id/analog_clock"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5" />
+
+            <com.arbelkilani.clock.Clock
+                android:id="@+id/digital_clock"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5" />
+        </LinearLayout>
+
+        <me.huteri.analogclock.AnalogClockView
+            android:id="@+id/analog_clock_huteri"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center" />
+
+        <com.tomerrosenfeld.customanalogclockview.CustomAnalogClock
+            android:id="@+id/custom_analog_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <com.tomerrosenfeld.customanalogclockview.CustomAnalogClock
+            android:id="@+id/custom_analog_clock2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+
+    </LinearLayout>
+</ScrollView>

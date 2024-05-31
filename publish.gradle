@@ -1,0 +1,72 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+afterEvaluate {
+    publishing {
+        repositories {
+            maven {
+                if (publishToLocal) {
+                    url = "D:\\repo\\"
+                } else {
+                    url = System.getenv("MAVEN_PUBLISH_URL")
+                    credentials {
+                        username = System.getenv("MAVEN_USER_NAME")
+                        password = System.getenv("MAVEN_PUBLISH_PASSWORD")
+                    }
+                }
+            }
+        }
+        publications {
+            release(MavenPublication) {
+                artifact(tasks.named("bundleReleaseAar"))
+                def finalUrl = "https://github.com/lalakii/SomeClockViews"
+                pom {
+                    name = artifactId
+                    artifactId = artifactId
+                    groupId = "cn.lalaki"
+                    version = releaseVersion
+                    description = artifactId + '(Android clock view), forked from: ' + projectUrl
+                    url = finalUrl
+                    licenses {
+                        license {
+                            name = projectLicense
+                            url = projectLicenseUrl
+                        }
+                    }
+                    developers {
+                        developer {
+                            name = 'lalakii'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:' + finalUrl + '.git'
+                        url = finalUrl
+                    }
+                    organization {
+                        name = "lalaki.cn"
+                        url = finalUrl
+                    }
+                }
+            }
+        }
+    }
+    signing {
+        useGpgCmd()
+        sign publishing.publications.release
+    }
+}
+tasks.configureEach {
+    if (it.name.toLowerCase().contains("aarmetadata") || it instanceof Javadoc)
+        it.enabled = false
+}
+dependencies {
+    //noinspection GradleDependency
+    implementation 'androidx.appcompat:appcompat:1.7.0-rc01'
+}
+ext {
+    publishToLocal = false
+    groupId = "cn.lalaki"
+    java_version = JavaVersion.VERSION_17
+    target_sdk_version = 34
+    compile_sdk_version = 34
+    min_sdk_version = 28
+}

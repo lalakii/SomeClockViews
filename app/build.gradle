@@ -1,0 +1,38 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+android {
+    namespace 'cn.lalaki.demo12315'
+    compileSdk 34
+    defaultConfig {
+        versionCode = 1.0
+        versionName "1.0"
+        applicationId 'cn.lalaki.demo12315'
+        minSdk 28
+    }
+    buildTypes {
+        release {
+            isDefault true
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
+    }
+}
+dependencies {
+    //noinspection GradleDependency
+    implementation 'androidx.appcompat:appcompat:1.7.0-rc01'
+    implementation project(':custom-analog-clock-view')
+    implementation project(':circle-time-view')
+    implementation project(':analogclock')
+    implementation project(':Clock-view')
+}
+tasks.configureEach {
+    if (it.name.toLowerCase().contains("aarmetadata")) it.enabled = false
+}

@@ -1,0 +1,27 @@
+apply plugin: 'com.android.library'
+apply from: "../publish.gradle"
+android {
+    namespace "com.tomerrosenfeld.customanalogclockview"
+    compileSdk compile_sdk_version
+    defaultConfig {
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
+    }
+    compileOptions {
+        sourceCompatibility java_version
+        targetCompatibility java_version
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            isDefault true
+        }
+    }
+}
+ext {
+    artifactId = "custom-analog-clock-view"
+    projectUrl = "https://github.com/rosenpin/custom-analog-clock-view"
+    projectLicense = "GPL v3.0"
+    projectLicenseUrl = "https://opensource.org/license/gpl-3-0/"
+    releaseVersion = "1.5-beta01"
+}
