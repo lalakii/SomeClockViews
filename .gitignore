@@ -1,0 +1,6 @@
+.idea
+.gradle
+.ds_store
+*.apk
+local.properties
+.kotlin

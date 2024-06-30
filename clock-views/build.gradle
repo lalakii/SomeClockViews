@@ -1,0 +1,89 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'signing'
+apply plugin: 'maven-publish'
+apply plugin: 'cn.lalaki.central'
+android {
+    namespace "cn.lalaki.desk.view"
+    compileSdk 35
+    defaultConfig {
+        minSdkVersion 28
+        targetSdkVersion 35
+    }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_17.majorVersion
+    buildTypes {
+        release {
+            minifyEnabled false
+            isDefault true
+        }
+    }
+}
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+}
+tasks.configureEach {
+    if (it.name.toLowerCase().contains("aarmetadata") || it instanceof Javadoc)
+        it.enabled = false
+}
+def finalRepo = uri("D:\\repo\\")
+centralPortalPlus {
+    url = finalRepo
+    username = System.getenv("TEMP_USER")
+    password = System.getenv("TEMP_PASS")
+}
+afterEvaluate {
+    publishing {
+        repositories {
+            maven {
+                url = finalRepo
+            }
+        }
+        publications {
+            release(MavenPublication) {
+                artifact(tasks.named("bundleReleaseAar"))
+                pom {
+                    name = artifactId
+                    artifactId = artifactId
+                    groupId = "cn.lalaki"
+                    version = releaseVersion
+                    description = "Android some clock views"
+                    url = projectUrl
+                    licenses {
+                        license {
+                            name = projectLicense
+                            url = projectLicenseUrl
+                        }
+                    }
+                    developers {
+                        developer {
+                            name = 'lalakii'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:' + projectUrl + '.git'
+                        url = projectUrl
+                    }
+                    organization {
+                        name = "lalaki.cn"
+                        url = projectUrl
+                    }
+                }
+            }
+        }
+    }
+    signing {
+        useGpgCmd()
+        sign publishing.publications.release
+    }
+}
+ext {
+    artifactId = "clock-views"
+    projectUrl = "https://github.com/lalakii/SomeClockViews"
+    projectLicense = "MIT License"
+    projectLicenseUrl = "https://opensource.org/license/mit"
+    releaseVersion = "1.0.1"
+}
